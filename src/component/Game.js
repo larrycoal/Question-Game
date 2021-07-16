@@ -40,7 +40,7 @@ const Game = (props) => {
       </div>
     ));
   };
-//all questions
+  //all questions
   const updateQuestion = (e) => {
     e.preventDefault();
     if (question !== "" && guessWord !== "" && questions.length < 20) {
@@ -53,26 +53,24 @@ const Game = (props) => {
       setError({
         question: true,
       });
+    } else if (guessWord === "") {
+      setError({
+        guessWord: true,
+      });
+    } else {
+      setError({
+        questions: true,
+      });
     }
-    else if (guessWord === "") {
-        setError({
-          guessWord: true,
-        });
-      }
-      else {
-        setError({
-          questions: true,
-        });
-      }
   };
-//Updates player response to yes/no
+  //Updates player response to yes/no
   const updateAnswer = (ans, i) => {
     let allQuestion = questions;
     allQuestion[i].answer = ans;
     setQuestions(allQuestion);
-    props.history.push("/home")
+    props.history.push("/home");
   };
-//user question
+  //user question
   const handleQuestion = (e) => {
     const question = e.target.value;
     setQuestion(question);
@@ -80,9 +78,14 @@ const Game = (props) => {
       question: false,
     });
   };
-//check if guess is correct
+  //check if guess is correct
   const checkAnswer = (e) => {
     e.preventDefault();
+    if (questions.length === 20) {
+      setError({
+        lastGuess: true,
+      });
+    }
     if (guess === guessWord) {
       setResult("correct");
     } else {
@@ -90,45 +93,55 @@ const Game = (props) => {
     }
   };
 
-
-  const handleRestart = ()=>{
-          setGuessWord("")
-          setQuestions([])
-          setResult("")
-          setGuess("")
-  }
-
-
-  const showResult = () => {
-    if (result === "correct") {
-      return <div><p>ROCK ON!!! CORRECT GUESS</p><button onClick={handleRestart}>Restart</button></div>;
-    } else if (result === "wrong") {
-      return <div>
-          <p>TRY AGAIN</p>
-          <p>hint:Its a {guessWord.length} letter word</p>
-      </div>;
-    }
-    return;
+  const handleRestart = () => {
+    setGuessWord("");
+    setQuestions([]);
+    setResult("");
+    setGuess("");
   };
 
+  const showResult = () => {
+    if (error.lastGuess && result === "wrong") {
+      return (
+        <div>
+          <p>You Ran Out Of Guesses</p>
+          <button onClick={handleRestart}>Restart</button>
+        </div>
+      );
+    } else if (result === "correct") {
+      return (
+        <div>
+          <p>ROCK ON!!! CORRECT GUESS</p>
+          <button onClick={handleRestart}>Restart</button>
+        </div>
+      );
+    } else if (result === "wrong") {
+      return (
+        <div>
+          <p>TRY AGAIN</p>
+          <p>hint:Its a {guessWord.length} letter word</p>
+        </div>
+      );
+    }
+  };
 
-  const handleGuess = (e)=>{
-      let newGuess = e.target.value.trim()
-      if(newGuess !== ""){
-        setGuessWord(newGuess)
-        setError({
-            guessWord:false
-        })
-      }  
-  }
+  const handleGuess = (e) => {
+    let newGuess = e.target.value.trim();
+    if (newGuess !== "") {
+      setGuessWord(newGuess);
+      setError({
+        guessWord: false,
+      });
+    }
+  };
   return (
     <div className="game-container">
       <div>
         <h2>Enter guess word</h2>
         <input value={guessWord} onChange={handleGuess} type="password" />
-        {
-            error.guessWord? <div className="error">Enter a guess word to start game</div> : null
-        }
+        {error.guessWord ? (
+          <div className="error">Enter a guess word to start game</div>
+        ) : null}
       </div>
       <div className="panel">
         <div className="question-panel">
@@ -137,11 +150,13 @@ const Game = (props) => {
             <input type="text" value={question} onChange={handleQuestion} />
             <button onClick={updateQuestion}>Ask</button>
           </form>
-          {error.question ? <div className="error">Question field is empty</div> : null}
+          {error.question ? (
+            <div className="error">Question field is empty</div>
+          ) : null}
           <ul>{showQuestion()}</ul>
-          {
-              error.questions ? <div className="error">Sorry You Ran Out Of Questions</div> :null
-          }
+          {error.questions ? (
+            <div className="error">Sorry You Ran Out Of Questions</div>
+          ) : null}
         </div>
         <div className="guess-panel">
           <h2>Take a guess</h2>
@@ -160,4 +175,4 @@ const Game = (props) => {
   );
 };
 
-export default withRouter(Game)
+export default withRouter(Game);

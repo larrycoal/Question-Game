@@ -50,5 +50,4 @@ describe("reducer",()=>{
     let player = playerReducer({isAuthenticated:true},{type:"logout"})
     expect(player).toEqual({isAuthenticated:false})
     })
- 
 })
