@@ -40,7 +40,7 @@ const Game = (props) => {
       </div>
     ));
   };
-
+//all questions
   const updateQuestion = (e) => {
     e.preventDefault();
     if (question !== "" && guessWord !== "" && questions.length < 20) {
@@ -65,14 +65,14 @@ const Game = (props) => {
         });
       }
   };
-
+//Updates player response to yes/no
   const updateAnswer = (ans, i) => {
     let allQuestion = questions;
     allQuestion[i].answer = ans;
     setQuestions(allQuestion);
     props.history.push("/home")
   };
-
+//user question
   const handleQuestion = (e) => {
     const question = e.target.value;
     setQuestion(question);
@@ -80,7 +80,7 @@ const Game = (props) => {
       question: false,
     });
   };
-
+//check if guess is correct
   const checkAnswer = (e) => {
     e.preventDefault();
     if (guess === guessWord) {
@@ -97,7 +97,6 @@ const Game = (props) => {
           setResult("")
           setGuess("")
   }
-
 
 
   const showResult = () => {
