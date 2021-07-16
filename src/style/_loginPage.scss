@@ -1,0 +1,20 @@
+.login-page-wrapper{
+    height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(235, 225, 225);
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 300px;
+        
+        input{
+            padding: 8px;
+        }
+        button{
+            padding: 8px;
+        }
+    }
+}

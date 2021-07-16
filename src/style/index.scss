@@ -1,0 +1,16 @@
+@import './header';
+@import './loginPage';
+@import './game';
+html,body,#root{
+    height: 100vh;
+    width: 100vw;
+    box-sizing: border-box;
+    .error{
+      font-size: small;
+      color: red;
+    }
+}
+*{
+    margin: 0;
+    padding: 0;
+}
