@@ -62,12 +62,13 @@
               ul{
                   height: 100%;
                   overflow: scroll;
+                  list-style:none;
                   .question-list{
                       display: flex;
                       gap: 5px;
                       justify-content: space-around;
                       font-size: 24px;
-                      margin: 10px 0px;
+                      margin: 15px 0px;
                       button{
                         background-color: #392dc7;
                         color: white;
